@@ -1,0 +1,15 @@
+.Cell {
+  border: none;
+}
+
+.Cell input {
+  font-size: 42px;
+  outline: 0;
+  border: 0;
+  text-align: center;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  opacity: 1;
+}
