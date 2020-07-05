@@ -14,7 +14,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "serve": "FLASK_APP=server/app.py flask run --port=3001",
+    "serve": "FLASK_APP=app.py flask run --port=3001",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
