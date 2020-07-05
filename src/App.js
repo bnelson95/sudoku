@@ -32,11 +32,27 @@ class App extends Component {
       .catch(console.log);
   };
 
+  solveClickHandler = () => {
+    fetch("http://localhost:3001/api/solve", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ board: this.state.board }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        this.setState({ board: data });
+      })
+      .catch(console.log);
+  };
+
   render() {
     return (
       <div style={{ textAlign: "center" }}>
-        <Board sudoku={this.state.board} change={this.cellChangeHandler} />
+        <Board board={this.state.board} change={this.cellChangeHandler} />
         <button onClick={this.generateClickHandler}>Generate</button>
+        <button onClick={this.solveClickHandler}>Solve</button>
       </div>
     );
   }

@@ -8,7 +8,7 @@ const board = (props) => {
       <table>
         <thead></thead>
         <tbody>
-          {props.sudoku.map((row, y) => {
+          {props.board.map((row, y) => {
             return (
               <tr key={String(y)}>
                 {row.map((col, x) => {
