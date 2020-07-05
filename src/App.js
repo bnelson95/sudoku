@@ -23,13 +23,20 @@ class App extends Component {
     this.setState({ board: board });
   };
 
+  generateClickHandler = () => {
+    fetch("http://localhost:3001/api/generate")
+      .then((res) => res.json())
+      .then((data) => {
+        this.setState({ board: data });
+      })
+      .catch(console.log);
+  };
+
   render() {
     return (
-      <div>
-        <Board
-          sudoku={this.state.board}
-          change={this.cellChangeHandler}
-        />
+      <div style={{ textAlign: "center" }}>
+        <Board sudoku={this.state.board} change={this.cellChangeHandler} />
+        <button onClick={this.generateClickHandler}>Generate</button>
       </div>
     );
   }
