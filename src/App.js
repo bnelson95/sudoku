@@ -24,7 +24,7 @@ class App extends Component {
   };
 
   generateClickHandler = () => {
-    fetch("http://localhost:3001/api/generate")
+    fetch(process.env.REACT_APP_API_URL + "/generate")
       .then((res) => res.json())
       .then((data) => {
         this.setState({ board: data });
@@ -33,7 +33,7 @@ class App extends Component {
   };
 
   solveClickHandler = () => {
-    fetch("http://localhost:3001/api/solve", {
+    fetch(process.env.REACT_APP_API_URL + "/solve", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -48,7 +48,7 @@ class App extends Component {
   };
 
   hintClickHandler = () => {
-    fetch("http://localhost:3001/api/hint", {
+    fetch(process.env.REACT_APP_API_URL + "/hint", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -73,10 +73,18 @@ class App extends Component {
       <div style={{ textAlign: "center" }}>
         <Board board={this.state.board} change={this.cellChangeHandler} />
         <div className='btn-group'>
-          <button className='btn btn-outline-dark' onClick={this.generateClickHandler}>Generate</button>
-          <button className='btn btn-outline-dark' onClick={this.solveClickHandler}>Solve</button>
-          <button className='btn btn-outline-dark' onClick={this.hintClickHandler}>Hint</button>
-          <button className='btn btn-outline-dark' onClick={this.clearClickHandler}>Clear</button>
+          <button className='btn btn-outline-dark' onClick={this.generateClickHandler}>
+            Generate
+          </button>
+          <button className='btn btn-outline-dark' onClick={this.solveClickHandler}>
+            Solve
+          </button>
+          <button className='btn btn-outline-dark' onClick={this.hintClickHandler}>
+            Hint
+          </button>
+          <button className='btn btn-outline-dark' onClick={this.clearClickHandler}>
+            Clear
+          </button>
         </div>
       </div>
     );
