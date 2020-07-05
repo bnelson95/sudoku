@@ -15,6 +15,7 @@ class App extends Component {
       [0, 0, 0, 0, 0, 0, 0, 0, 0],
       [0, 0, 0, 0, 0, 0, 0, 0, 0],
     ],
+    isGenerateOpen: false,
   };
 
   cellChangeHandler = (event, x, y) => {
@@ -23,11 +24,15 @@ class App extends Component {
     this.setState({ board: board });
   };
 
+  generateMenuClickHandler = () => {
+    this.setState({ isGenerateOpen: !this.state.isGenerateOpen });
+  };
+
   generateClickHandler = () => {
     fetch(process.env.REACT_APP_API_URL + "/generate")
       .then((res) => res.json())
       .then((data) => {
-        this.setState({ board: data });
+        this.setState({ board: data, isGenerateOpen: false });
       })
       .catch(console.log);
   };
@@ -69,22 +74,46 @@ class App extends Component {
   };
 
   render() {
+    const generateMenuClass = `dropdown-menu${this.state.isGenerateOpen ? " show" : ""}`;
     return (
-      <div style={{ textAlign: "center" }}>
-        <Board board={this.state.board} change={this.cellChangeHandler} />
-        <div className='btn-group'>
-          <button className='btn btn-outline-dark' onClick={this.generateClickHandler}>
-            Generate
-          </button>
-          <button className='btn btn-outline-dark' onClick={this.solveClickHandler}>
-            Solve
-          </button>
-          <button className='btn btn-outline-dark' onClick={this.hintClickHandler}>
-            Hint
-          </button>
-          <button className='btn btn-outline-dark' onClick={this.clearClickHandler}>
-            Clear
-          </button>
+      <div>
+        <nav className='navbar navbar-dark bg-dark'>
+          <span className='navbar-brand mb-0 h1'>Sudoku</span>
+          <div>
+            <div className='dropdown btn-group mx-3'>
+              <button
+                className='btn btn-outline-light dropdown-toggle'
+                data-toggle='dropdown'
+                onClick={this.generateMenuClickHandler}>
+                Generate
+              </button>
+              <div className={generateMenuClass}>
+                <button className='dropdown-item' onClick={this.generateClickHandler}>
+                  Easy (TODO)
+                </button>
+                <button className='dropdown-item' onClick={this.generateClickHandler}>
+                  Medium (TODO)
+                </button>
+                <button className='dropdown-item' onClick={this.generateClickHandler}>
+                  Hard (TODO)
+                </button>
+              </div>
+            </div>
+            <div className='btn-group text-center'>
+              <button className='btn btn-outline-light' onClick={this.solveClickHandler}>
+                Solve
+              </button>
+              <button className='btn btn-outline-light' onClick={this.hintClickHandler}>
+                Hint
+              </button>
+              <button className='btn btn-outline-light' onClick={this.clearClickHandler}>
+                Clear
+              </button>
+            </div>
+          </div>
+        </nav>
+        <div className='container text-center'>
+          <Board board={this.state.board} change={this.cellChangeHandler} />
         </div>
       </div>
     );
