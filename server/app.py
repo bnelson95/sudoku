@@ -3,8 +3,9 @@ from flask_cors import CORS
 import requests
 import sudoku_solve
 import numpy
+import os
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='./build', static_url_path='/')
 CORS(app)
 
 
@@ -34,3 +35,12 @@ def hint():
     if x != -1:
         board[x][y] = solvedBoard[x][y]
     return jsonify(board)
+
+
+@app.route('/')
+def index():
+    return app.send_static_file('index.html')
+
+
+if __name__ == "__main__":
+    app.run(host='0.0.0.0', debug=False, port=os.environ.get('PORT', 3001))
