@@ -47,12 +47,19 @@ class App extends Component {
       .catch(console.log);
   };
 
+  clearClickHandler = () => {
+    const board = [...this.state.board];
+    board.forEach((row) => row.fill(0));
+    this.setState({ board: board });
+  };
+
   render() {
     return (
       <div style={{ textAlign: "center" }}>
         <Board board={this.state.board} change={this.cellChangeHandler} />
         <button onClick={this.generateClickHandler}>Generate</button>
         <button onClick={this.solveClickHandler}>Solve</button>
+        <button onClick={this.clearClickHandler}>Clear</button>
       </div>
     );
   }
