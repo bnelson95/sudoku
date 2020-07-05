@@ -11,7 +11,7 @@ CORS(app)
 @app.route('/api/generate')
 def generate():
     response = requests.get(
-        'http://www.cs.utep.edu/cheon/ws/sudoku/new?size=9&level=1')
+        'http://www.cs.utep.edu/cheon/ws/sudoku/new?size=9&level=3')
     newBoard = numpy.zeros((9, 9)).tolist()
     for cell in response.json()['squares']:
         newBoard[cell['y']][cell['x']] = cell['value']
@@ -22,4 +22,15 @@ def generate():
 def solve():
     board = request.json.get('board')
     sudoku_solve.solve(board)
+    return jsonify(board)
+
+
+@app.route('/api/hint', methods=['GET', 'POST'])
+def hint():
+    board = request.json.get('board')
+    solvedBoard = [row[:] for row in board]
+    sudoku_solve.solve(solvedBoard)
+    (x, y) = sudoku_solve.find_empty(board)
+    if x != -1:
+        board[x][y] = solvedBoard[x][y]
     return jsonify(board)
