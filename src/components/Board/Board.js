@@ -1,6 +1,6 @@
 import React from "react";
 import Cell from "../Cell/Cell";
-import './Board.css'
+import "./Board.css";
 
 const board = (props) => {
   return (
@@ -14,7 +14,10 @@ const board = (props) => {
                 {row.map((col, x) => {
                   return (
                     <td key={String(y) + String(x)}>
-                      <Cell value={col} change={(e) => props.change(e, x, y)} />
+                      <Cell
+                        value={col}
+                        change={(e) => props.change({ x, y, value: e.target.value })}
+                      />
                     </td>
                   );
                 })}
