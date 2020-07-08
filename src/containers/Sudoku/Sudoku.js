@@ -25,14 +25,14 @@ class Sudoku extends Component {
             Generate
           </button>
           <div className={generateMenuClass}>
-            <button className='dropdown-item' onClick={this.props.onGenerateClicked}>
-              Easy (TODO)
+            <button className='dropdown-item' onClick={() => this.props.onGenerateClicked(1)}>
+              Easy
             </button>
-            <button className='dropdown-item' onClick={this.props.onGenerateClicked}>
-              Medium (TODO)
+            <button className='dropdown-item' onClick={() => this.props.onGenerateClicked(2)}>
+              Medium
             </button>
-            <button className='dropdown-item' onClick={this.props.onGenerateClicked}>
-              Hard (TODO)
+            <button className='dropdown-item' onClick={() => this.props.onGenerateClicked(3)}>
+              Hard
             </button>
           </div>
         </div>
@@ -69,7 +69,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     onCellChange: (cell) => dispatch(actions.updateCell(cell)),
     onClearClicked: () => dispatch(actions.clearBoard()),
-    onGenerateClicked: () => dispatch(actions.newBoard()),
+    onGenerateClicked: (dif) => dispatch(actions.newBoard(dif)),
     onHintClicked: (board) => dispatch(actions.getHint(board)),
     onSolveClicked: (board) => dispatch(actions.solveBoard(board)),
   };

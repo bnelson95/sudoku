@@ -22,9 +22,15 @@ export const setBoard = (board) => {
   };
 };
 
-export const newBoard = () => {
+export const newBoard = (difficulty) => {
   return (dispatch) => {
-    fetch(process.env.REACT_APP_API_URL + "/generate")
+    fetch(process.env.REACT_APP_API_URL + "/generate", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ difficulty: difficulty })
+    })
       .then((res) => res.json())
       .then((data) => dispatch(setBoard(data)))
       .catch((error) => console.log(error));

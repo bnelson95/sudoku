@@ -9,10 +9,11 @@ app = Flask(__name__, static_folder='./build', static_url_path='/')
 CORS(app)
 
 
-@app.route('/api/generate')
+@app.route('/api/generate', methods=['GET', 'POST'])
 def generate():
+    difficulty = request.json.get('difficulty')
     response = requests.get(
-        'http://www.cs.utep.edu/cheon/ws/sudoku/new?size=9&level=3')
+        f'http://www.cs.utep.edu/cheon/ws/sudoku/new?size=9&level={difficulty}')
     newBoard = numpy.zeros((9, 9)).tolist()
     for cell in response.json()['squares']:
         newBoard[cell['y']][cell['x']] = cell['value']
