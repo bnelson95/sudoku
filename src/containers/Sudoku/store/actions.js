@@ -1,11 +1,36 @@
 export const CELL_CHANGE = "CELL_CHANGE";
+export const CELL_SELECT = "CELL_SELECT";
+export const SELECTION_CLEAR = "SELECTION_CLEAR";
 export const BOARD_CLEAR = "BOARD_CLEAR";
 export const BOARD_SET = "BOARD_SET";
+export const NUMBER_APPLY = "NUMBER_APPLY";
+export const NOTE_APPLY = "NOTE_APPLY";
 
 export const updateCell = (cell) => {
   return {
     type: CELL_CHANGE,
     cell: cell,
+  };
+};
+
+export const selectCell = (cell) => {
+  return {
+    type: CELL_SELECT,
+    cell: cell,
+  };
+};
+
+export const applyNumber = (number, noteMode) => {
+  return {
+    type: NUMBER_APPLY,
+    number: number,
+    noteMode: noteMode,
+  };
+};
+
+export const clearSelection = (cell) => {
+  return {
+    type: SELECTION_CLEAR,
   };
 };
 
@@ -29,7 +54,7 @@ export const newBoard = (difficulty) => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ difficulty: difficulty })
+      body: JSON.stringify({ difficulty: difficulty }),
     })
       .then((res) => res.json())
       .then((data) => dispatch(setBoard(data)))
@@ -44,7 +69,7 @@ export const solveBoard = (board) => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ board: board }),
+      body: JSON.stringify({ board: simpleBoard(board) }),
     })
       .then((res) => res.json())
       .then((data) => dispatch(setBoard(data)))
@@ -59,10 +84,18 @@ export const getHint = (board) => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ board: board }),
+      body: JSON.stringify({ board: simpleBoard(board) }),
     })
       .then((res) => res.json())
       .then((data) => dispatch(setBoard(data)))
       .catch(console.log);
   };
+};
+
+const simpleBoard = (board) => {
+  return board.map((row) => {
+    return row.map((cell) => {
+      return cell.value;
+    });
+  });
 };

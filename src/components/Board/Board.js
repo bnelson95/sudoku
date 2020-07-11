@@ -11,13 +11,10 @@ const board = (props) => {
           {props.board.map((row, y) => {
             return (
               <tr key={String(y)}>
-                {row.map((col, x) => {
+                {row.map((cell, x) => {
                   return (
                     <td key={String(y) + String(x)}>
-                      <Cell
-                        value={col}
-                        change={(e) => props.change({ x, y, value: e.target.value })}
-                      />
+                      <Cell pos={{x, y}} data={cell} click={props.click} />
                     </td>
                   );
                 })}
