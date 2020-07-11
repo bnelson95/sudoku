@@ -1,3 +1,8 @@
-.control-bar {
-	margin: 1em;
+.number {
+  width: 55px;
 }
+
+.btn:focus, .btn:active {
+	outline: none !important;
+	box-shadow: none !important;
+  }
